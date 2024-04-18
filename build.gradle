@@ -43,3 +43,14 @@ dependencies {
 test {
     useJUnitPlatform()
 }
+
+tasks.register('cucumberRun') {
+    dependsOn assemble, testClasses
+    doLast {
+        javaexec {
+            main = 'io.cucumber.core.cli.Main'
+            classpath = configurations.testRuntimeClasspath
+            args = ['--glue', 'stepDefs', 'src/test/kro/kr/tbell/features']
+        }
+    }
+}
