@@ -50,7 +50,9 @@ tasks.register('cucumberRun') {
         javaexec {
             main = 'io.cucumber.core.cli.Main'
             classpath = configurations.testRuntimeClasspath
-            args = ['--glue', 'stepDefs', 'src/test/kro/kr/tbell/features']
+            args = ['src/test/java/kro/kr/tbell/features/poc.feature',
+                    '--glue',
+                    'kro.kr.tbell.stepDefs']
         }
     }
 }
