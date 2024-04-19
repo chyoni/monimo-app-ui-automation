@@ -20,6 +20,8 @@ dependencies {
     // Cucumber
     implementation 'io.cucumber:cucumber-java:7.4.1'
     implementation 'io.cucumber:cucumber-junit:7.4.1'
+    testImplementation 'io.cucumber:cucumber-junit:7.4.1'
+    testImplementation 'io.cucumber:cucumber-java:7.4.1'
 
     // Lombok
     compileOnly 'org.projectlombok:lombok:1.18.30'
@@ -42,17 +44,29 @@ dependencies {
 
 test {
     useJUnitPlatform()
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
+}
+
+configurations {
+    cucumberRuntime {
+        extendsFrom testImplementation
+    }
 }
 
 tasks.register('cucumberRun') {
     dependsOn assemble, testClasses
     doLast {
         javaexec {
+
             main = 'io.cucumber.core.cli.Main'
-            classpath = configurations.testRuntimeClasspath
-            args = ['src/test/java/kro/kr/tbell/features/poc.feature',
-                    '--glue',
-                    'kro.kr.tbell.stepDefs']
+            classpath = configurations.cucumberRuntime + sourceSets.main.output + sourceSets.test.output
+            args = ['--glue', 'kro.kr.tbell.stepdefinitions',
+                    'classpath:features',
+                    '--plugin', 'pretty',
+                    '--plugin', 'html:build/cucumber-report.html'
+            ]
         }
     }
 }

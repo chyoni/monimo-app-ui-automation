@@ -32,10 +32,7 @@ public class AppiumConnector {
                     String url = (String) env.get("url");
 
                     try {
-                        URL appiumServer = URI.create(url).toURL();
-                        UiAutomator2Options options = new UiAutomator2Options().setUdid(udid);
-
-                        androidDriver = new AndroidDriver(appiumServer, options);
+                        createAndroidDriver(url, udid);
                     } catch (MalformedURLException e) {
                         log.error("[getAndroidDriver]: MalformedURLException", e);
                         throw new RuntimeException(e);
@@ -44,6 +41,13 @@ public class AppiumConnector {
             }
         }
         return androidDriver;
+    }
+
+    private static void createAndroidDriver(String url, String udid) throws MalformedURLException {
+        URL appiumServer = URI.create(url).toURL();
+        UiAutomator2Options options = new UiAutomator2Options().setUdid(udid);
+
+        androidDriver = new AndroidDriver(appiumServer, options);
     }
 
     private static Map<String, Object> initializeYaml() {

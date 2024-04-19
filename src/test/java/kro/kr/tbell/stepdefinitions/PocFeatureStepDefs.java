@@ -1,4 +1,4 @@
-package kro.kr.tbell.stepDefs;
+package kro.kr.tbell.stepdefinitions;
 
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
