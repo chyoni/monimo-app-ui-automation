@@ -40,6 +40,11 @@ dependencies {
     // SnakeYAML
     implementation 'org.yaml:snakeyaml:2.2'
     testImplementation 'org.yaml:snakeyaml:2.2'
+
+    // OpenCV
+    implementation 'org.openpnp:opencv:4.9.0-0'
+    // Tesseract
+    implementation 'net.sourceforge.tess4j:tess4j:5.11.0' // 버전은 사용 가능한 최신 버전으로 조정
 }
 
 test {
